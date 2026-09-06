@@ -47,9 +47,35 @@ window.__ModuleLoader__.load({
       mirror.load()
     }
 
+    function markHostLoopback(remote) {
+      if (!remote || !remote.$host) return
+      var host = remote.$host
+      // 0.1.2 ui-settings-general reads $host.isLoopback once at apply to
+      // build SettingsDocumentStore. A getter keeps the flag true even if a
+      // later official write tries to restore the non-loopback snapshot.
+      try {
+        Object.defineProperty(host, 'isLoopback', {
+          configurable: true,
+          enumerable: true,
+          get: function () { return true },
+          set: function () {}
+        })
+      } catch (err) {
+        try { host.isLoopback = true } catch (err2) {}
+      }
+    }
+
     function apply(ctx) {
       var connection = ctx.get('connection')
       if (connection) connection.isLoopback = true
+      // 0.1.2 settings/credentials read ctx.remote.$host.isLoopback, not
+      // connection.isLoopback. Keep both in sync for reverse-proxy Access.
+      markHostLoopback(ctx.get('remote'))
+      if (typeof ctx.inject === 'function') {
+        ctx.inject(['remote'], function (scope) {
+          markHostLoopback(scope && scope.remote)
+        })
+      }
 
       // These scopes are created before this plugin applies. Future scopes see
       // connection.isLoopback=true and are constructed in host mode directly.

@@ -66,6 +66,11 @@ to host persistence:
 - It promotes the shared `connection.isLoopback` capability for the client
   graph loaded from this same trusted-host plugin row. Future settings scopes
   are consequently created in host mode.
+- On DSH 0.1.2+ it also sets `ctx.remote.$host.isLoopback`. Official
+  `ui-settings-general` builds the settings document store from that Host
+  flag, not from `connection.isLoopback`. Without it, Settings → Models
+  looks empty on a reverse-proxy page even though `$DSH_HOME/.credentials.yaml`
+  is intact.
 - It upgrades the shared settings describe mirror from memory to host mode and
   calls `load()` so an already-terminal `unavailable` mirror performs the
   privileged read and populates Settings → Models.

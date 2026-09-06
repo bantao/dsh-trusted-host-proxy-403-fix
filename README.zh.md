@@ -21,6 +21,7 @@ transport failure for /api/settings.describe: HTTP 403
 本包浏览器半区会把已经过身份认证的 trusted-host 部署升级为 host 持久化：
 
 - 它为同一个 trusted-host 插件行加载的客户端图提升 `connection.isLoopback` 能力，使后续 settings scope 直接以 host 模式创建。
+- 在 DSH 0.1.2+ 还会设置 `ctx.remote.$host.isLoopback`。官方 `ui-settings-general` 用这个 Host 标志而不是 `connection.isLoopback` 来创建设置文档存储。不设的话，反向代理页面上「设置 → 模型」会显示成空的，即使 `$DSH_HOME/.credentials.yaml` 里的密钥还在。
 - 它把共享 settings describe mirror 从 memory 升级为 host，并显式调用 `load()`，使已经进入 `unavailable` 终态的 mirror 重新执行特权读取并填充设置 → 模型。
 - 它把通过 `locale` 与 `theme` 服务可达的控制器就地升级（persistence 是普通实例字段），并触发一次重新读取，使已保存的偏好升级后首屏即生效，无需用户重新选择。
 

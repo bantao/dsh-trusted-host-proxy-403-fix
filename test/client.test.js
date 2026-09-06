@@ -58,17 +58,29 @@ function makeCtx(services) {
   ])
 
   const connection = { isLoopback: false }
+  const remote = { $host: { isLoopback: false } }
   const mirror = new SettingsDescribeMirror('memory')
   const localeHost = new SettingsScopeController('memory', mirror)
   const themeHost = new SettingsScopeController('memory', mirror)
-  entry.apply(makeCtx({
+  const ctx = makeCtx({
     connection,
+    remote,
     settingsScope: new SettingsScopeBinder(mirror),
     locale: { host: localeHost },
     theme: { host: themeHost }
-  }))
+  })
+  let injectCalls = 0
+  ctx.inject = function (deps, fn) {
+    injectCalls += 1
+    if (deps[0] === 'remote') fn({ remote: remote })
+  }
+  entry.apply(ctx)
 
   assert.equal(connection.isLoopback, true)
+  assert.equal(remote.$host.isLoopback, true)
+  assert.equal(injectCalls, 1)
+  remote.$host.isLoopback = false
+  assert.equal(remote.$host.isLoopback, true, 'getter keeps Host loopback true')
   assert.equal(mirror.persistence, 'host')
   assert.equal(mirror.loadCalls, 1)
   assert.deepEqual(mirror.view, { namespaces: [] })
