@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-适用于 `web` profile 的独立 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件。`0.3.0` 精确锁定 `@deepseek-ai/dsh@0.1.1-rc.2`。
+适用于 `web` profile 的独立 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件。`0.5.0` 精确锁定 `@deepseek-ai/dsh@0.1.5-rc.1`。
 
 `dsh web`（即 `dsh --profile web`）监听本机回环地址。可以多次传入 `--trusted-host`，添加 `/api` [浏览器请求安全检查](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/connection/README.zh.md#api-%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BF%A1%E4%BB%BB%E6%A0%85%E6%A0%8F)所接受的[受信任主机](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/connection/README.zh.md)。请求中的 `Host` 与其中一项匹配时，非特权 API 方法即可正常访问。
 

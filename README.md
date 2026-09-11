@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-A standalone [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin bundle for the `web` profile. Version 0.3.0 is pinned to `@deepseek-ai/dsh@0.1.1-rc.2`.
+A standalone [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin bundle for the `web` profile. Version 0.5.0 is pinned to `@deepseek-ai/dsh@0.1.5-rc.1`.
 
 `dsh web` (`dsh --profile web`) listens on the loopback interface. You can repeat `--trusted-host` to add [trusted host entries](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/connection/README.md) that pass the `/api` [browser request security checks](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/connection/README.md#api-browser-trust-fence). Requests to non-privileged API methods then succeed when their `Host` matches one of those entries.
 

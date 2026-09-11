@@ -1,7 +1,7 @@
 {
   "name": "dsh-trusted-host-proxy-403-fix",
-  "version": "0.4.1",
-  "description": "For DSH 0.1.2+, skip the browser-cookie 401 on Hosts already admitted by --trusted-host (Access remains the identity layer) and keep reverse-proxy settings persistence. Not an authentication layer.",
+  "version": "0.5.0",
+  "description": "For DSH 0.1.5+, skip the browser-cookie 401 on Hosts already admitted by --trusted-host (Access remains the identity layer) and keep reverse-proxy settings persistence. Not an authentication layer.",
   "type": "module",
   "main": "./src/index.js",
   "exports": {
@@ -52,10 +52,10 @@
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-client-connection": "0.1.2-rc.1",
-    "@deepseek-ai/dsh-client-locale": "0.1.2-rc.1",
-    "@deepseek-ai/dsh-client-ui-settings": "0.1.2-rc.1",
-    "@deepseek-ai/dsh-client-ui-theme": "0.1.2-rc.1",
+    "@deepseek-ai/dsh-client-connection": "0.1.5-rc.1",
+    "@deepseek-ai/dsh-client-locale": "0.1.5-rc.1",
+    "@deepseek-ai/dsh-client-ui-settings": "0.1.5-rc.1",
+    "@deepseek-ai/dsh-client-ui-theme": "0.1.5-rc.1",
     "@deepseek-ai/cordis": "^4.0.1"
   },
   "engines": {
