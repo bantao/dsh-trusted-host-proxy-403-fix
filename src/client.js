@@ -1,10 +1,11 @@
 // Browser half of dsh-trusted-host-proxy-403-fix.
 //
-// DSH 0.1.1-rc.2 centralizes settings reads in a SettingsDescribeMirror and
+// DSH 0.1.5-rc.2 centralizes settings reads in a SettingsDescribeMirror and
 // deliberately leaves that mirror unavailable when connection.isLoopback is
 // false. This package's server half already admits privileged RPCs only for
 // authorities explicitly listed in --trusted-host, with the official
-// Host/Origin request fence in front of them. The browser half therefore
+// Host/Origin request fence applied before bypassing the cookie 401. The
+// browser half therefore
 // upgrades that authenticated reverse-proxy deployment to the same host-backed
 // settings mode as a loopback page.
 window.__ModuleLoader__.load({
