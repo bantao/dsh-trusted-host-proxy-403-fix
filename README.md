@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-A standalone [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin for the `web` profile. Version `0.6.0` is pinned to `@deepseek-ai/dsh@0.1.5-rc.2`.
+A standalone [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin for the `web` profile. Version `0.7.0` is pinned to `@deepseek-ai/dsh@0.1.5-rc.2`.
 
 DSH 0.1.2+ adds a process-token or signed-cookie gate to Web pages and API requests. In reverse-proxy deployments that already authenticate users with Cloudflare Access or an equivalent layer and constrain the public authority with `--trusted-host`, this plugin skips only the cookie `401` for requests that pass the trusted Host, Origin, and Fetch Metadata fence. It also keeps settings, locale, and theme persistence in host mode.
 
@@ -26,18 +26,27 @@ For pages admitted by that boundary, the client half enables the same host-backe
 
 Credentials state in Settings → Models, language, appearance, and Composer Enter preferences therefore survive refreshes and DSH process restarts.
 
+## Effective configuration viewer
+
+On a trusted reverse-proxy page, the Host desktop's **Open configuration file** action is replaced with **View effective config**:
+
+- It reads namespace values resolved by the running DSH process through the existing `settings.describe()` boundary.
+- It supports YAML / JSON views, refresh, and copy.
+- Keys, tokens, and passwords remain redacted by the DSH server-side schema. The plugin never reads or returns the raw `settings.yaml` document.
+- The view represents effective values, not the source file's comments or original formatting.
+
 ## Install
 
 Install the published npm version:
 
 ```bash
-dsh plugin --profile web add dsh-trusted-host-proxy-403-fix@0.6.0
+dsh plugin --profile web add dsh-trusted-host-proxy-403-fix@0.7.0
 ```
 
 Install the GitHub Release tarball:
 
 ```bash
-dsh plugin --profile web add https://github.com/roojay/dsh-trusted-host-proxy-403-fix/releases/download/v0.6.0/dsh-trusted-host-proxy-403-fix-0.6.0.tgz
+dsh plugin --profile web add https://github.com/roojay/dsh-trusted-host-proxy-403-fix/releases/download/v0.7.0/dsh-trusted-host-proxy-403-fix-0.7.0.tgz
 ```
 
 Test a local checkout before release:
@@ -83,7 +92,7 @@ curl -sS -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:3080/api/sett
   -d '{}'
 ```
 
-After authenticating at the front end, also verify in a real browser that sessions open, messages can be sent, Settings → Models can read and save credentials, and locale/theme preferences survive a hard refresh and a full process restart.
+After authenticating at the front end, also verify in a real browser that sessions open, messages can be sent, Settings → Models can read and save credentials, locale/theme preferences survive a hard refresh and a full process restart, and **View effective config** contains only redacted current values.
 
 ## Develop
 

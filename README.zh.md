@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-适用于 `web` profile 的独立 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件。`0.6.0` 精确适配 `@deepseek-ai/dsh@0.1.5-rc.2`。
+适用于 `web` profile 的独立 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件。`0.7.0` 精确适配 `@deepseek-ai/dsh@0.1.5-rc.2`。
 
 DSH 0.1.2+ 会对 Web 页面和 API 增加进程 Token／签名 Cookie 校验。对于已经在 DSH 前面部署 Cloudflare Access 等身份认证、同时通过 `--trusted-host` 限定公开主机名的反向代理场景，本插件只跳过受信 Host 请求的 Cookie `401`，并保持远程设置、语言和主题的 host 持久化。
 
@@ -26,18 +26,27 @@ DSH 0.1.2+ 会对 Web 页面和 API 增加进程 Token／签名 Cookie 校验。
 
 这样可以保证设置 → 模型中的凭据状态、语言、外观和 Composer Enter 等选项在刷新或 DSH 进程重启后仍然保留。
 
+## 生效配置查看
+
+受信反向代理页面不使用 Host 桌面的“打开配置文件”操作，而是在设置页提供“查看生效配置”：
+
+- 从 DSH 现有 `settings.describe()` 边界读取当前进程已解析的 namespace 值。
+- 支持 YAML / JSON 切换、刷新和复制。
+- 密钥、Token 和密码继续使用 DSH schema 的服务端脱敏，插件不读取或返回原始 `settings.yaml`。
+- 展示内容是当前生效值，不包含磁盘文件的注释和原始排版。
+
 ## 安装
 
 从 npm 安装正式版本：
 
 ```bash
-dsh plugin --profile web add dsh-trusted-host-proxy-403-fix@0.6.0
+dsh plugin --profile web add dsh-trusted-host-proxy-403-fix@0.7.0
 ```
 
 从 GitHub Release 安装：
 
 ```bash
-dsh plugin --profile web add https://github.com/roojay/dsh-trusted-host-proxy-403-fix/releases/download/v0.6.0/dsh-trusted-host-proxy-403-fix-0.6.0.tgz
+dsh plugin --profile web add https://github.com/roojay/dsh-trusted-host-proxy-403-fix/releases/download/v0.7.0/dsh-trusted-host-proxy-403-fix-0.7.0.tgz
 ```
 
 开发或发布前测试本地源码：
@@ -83,7 +92,7 @@ curl -sS -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:3080/api/sett
   -d '{}'
 ```
 
-通过前置身份认证后，还应在真实浏览器中确认：会话列表可打开、消息可发送、设置 → 模型可读取和保存凭据，语言与主题在硬刷新和完整重启后保持不变。
+通过前置身份认证后，还应在真实浏览器中确认：会话列表可打开、消息可发送、设置 → 模型可读取和保存凭据，语言与主题在硬刷新和完整重启后保持不变，且“查看生效配置”只显示脱敏后的当前值。
 
 ## 开发
 

@@ -7,9 +7,11 @@ import {
 
 const require = createRequire(import.meta.url)
 const expectedVersions = new Map([
+  ['@deepseek-ai/dsh-api-remotes', '0.1.5-rc.2'],
   ['@deepseek-ai/dsh-client-connection', '0.1.5-rc.2'],
   ['@deepseek-ai/dsh-client-locale', '0.1.5-rc.2'],
   ['@deepseek-ai/dsh-client-ui-settings', '0.1.5-rc.2'],
+  ['@deepseek-ai/dsh-client-ui-settings-general', '0.1.5-rc.2'],
   ['@deepseek-ai/dsh-client-ui-theme', '0.1.5-rc.2']
 ])
 
